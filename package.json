@@ -1,0 +1,29 @@
+{
+  "name": "playwright-bdd-framework",
+  "version": "1.0.0",
+  "description": "Playwright BDD framework with Cucumber Gherkin for stakeholder-friendly acceptance tests",
+  "private": true,
+  "scripts": {
+    "test": "npx bddgen && playwright test",
+    "test:headed": "npx bddgen && playwright test --headed",
+    "test:ui": "npx bddgen && playwright test --ui",
+    "bddgen": "npx bddgen",
+    "report": "playwright show-report",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "playwright",
+    "bdd",
+    "cucumber",
+    "gherkin",
+    "qa"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^22.10.2",
+    "playwright-bdd": "^9.2.0",
+    "typescript": "^5.7.2"
+  }
+}
