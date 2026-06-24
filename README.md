@@ -1,8 +1,8 @@
-# Playwright BDD Framework
+# Playwright BDD Framework (Python)
 
 [![BDD Tests](https://github.com/hmik2003/playwright-bdd-framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/hmik2003/playwright-bdd-framework/actions/workflows/playwright.yml)
 [![Scenarios](https://img.shields.io/badge/scenarios-9%20passing-brightgreen)](https://github.com/hmik2003/playwright-bdd-framework)
-[![Playwright](https://img.shields.io/badge/Playwright-1.49-blue?logo=playwright)](https://playwright.dev)
+[![Playwright](https://img.shields.io/badge/Playwright-Python-blue?logo=playwright)](https://playwright.dev/python/)
 [![Cucumber](https://img.shields.io/badge/Cucumber-Gherkin-green?logo=cucumber)](https://cucumber.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -13,7 +13,7 @@ A **Behavior-Driven Development (BDD)** test framework combining Playwright with
 ## Features
 
 - **Gherkin feature files** — human-readable scenarios stakeholders can review
-- **playwright-bdd** — native Playwright integration (no separate WebDriver layer)
+- **pytest-bdd** — native pytest integration with Playwright fixtures
 - **Reusable step definitions** — DRY step library mapped to Page Objects
 - **Scenario Outlines** — data-driven tests via Examples tables
 - **Tagged scenarios** — `@smoke`, `@cart`, `@checkout` for selective runs
@@ -23,43 +23,45 @@ A **Behavior-Driven Development (BDD)** test framework combining Playwright with
 ```
 playwright-bdd-framework/
 ├── .github/workflows/     # CI pipeline
-├── fixtures/              # Test data & BDD fixtures
+├── conftest.py            # pytest fixtures
+├── fixtures/              # Test data
 ├── pages/                 # Page Object classes
 ├── tests/
 │   ├── features/          # Gherkin .feature files
-│   └── steps/             # Step definition implementations
+│   ├── steps/             # Step definition implementations
+│   └── test_bdd.py        # Scenario bindings
 ├── utils/                 # Gherkin helper utilities
-├── playwright.config.ts
-└── package.json
+├── pytest.ini
+└── requirements.txt
 ```
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) 18+
-- npm 9+
+- Python 3.11+
+- pip
 
 ### Installation
 
 ```bash
 git clone https://github.com/hmik2003/playwright-bdd-framework.git
 cd playwright-bdd-framework
-npm install
-npx playwright install
+pip install -r requirements.txt
+playwright install
 ```
 
 ### Run Tests
 
 ```bash
-# Generate BDD specs from features and run
-npm test
+# Run all BDD scenarios
+pytest --browser chromium
 
 # Headed mode
-npm run test:headed
+pytest --browser chromium --headed
 
-# Regenerate specs only
-npm run bddgen
+# Filter by tag (via pytest-bdd / feature tags)
+pytest -k login
 ```
 
 ## Example Feature File
@@ -73,7 +75,7 @@ Feature: Shopping Cart Management
   Scenario: Add a product to the cart
     Given I am logged in as a standard user
     When I add "Sauce Labs Backpack" to the cart
-    Then my cart should contain 1 item
+    Then my cart should contain 1 items
 ```
 
 ## Scenario Coverage
@@ -95,9 +97,9 @@ Feature: Shopping Cart Management
 
 ## Tech Stack
 
-- [Playwright](https://playwright.dev/) — browser automation
-- [playwright-bdd](https://github.com/vitalets/playwright-bdd) — Gherkin + Playwright
-- [TypeScript](https://www.typescriptlang.org/) — type-safe step definitions
+- [Playwright for Python](https://playwright.dev/python/) — browser automation
+- [pytest-bdd](https://pytest-bdd.readthedocs.io/) — Gherkin + pytest
+- [pytest-playwright](https://github.com/microsoft/playwright-pytest) — browser fixtures
 - [GitHub Actions](https://github.com/features/actions) — CI/CD
 
 ## License
